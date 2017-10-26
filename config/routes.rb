@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
-    resource :uploads, only: [:create]
+    resources :uploads, only: [:create]
+    resources :photos, only: [:index, :show]
   end
 
   devise_for :users

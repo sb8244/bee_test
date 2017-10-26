@@ -3,6 +3,8 @@ class Api::BaseController < ApplicationController
 
   respond_to :json
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found_error
+
   def current_user
     return nil if auth_token.blank?
     @current_user ||= User.load_from_token(auth_token)
@@ -17,5 +19,9 @@ class Api::BaseController < ApplicationController
 
   def auth_token
     request.headers.fetch('Authorization', '').split('Bearer: ').last
+  end
+
+  def not_found_error
+    render json: { error: "Not found" }, status: 404
   end
 end
