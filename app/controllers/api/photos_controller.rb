@@ -9,6 +9,11 @@ class Api::PhotosController < Api::BaseController
     respond_with :api, photo
   end
 
+  def create
+    photo = current_user.photos.create(photo_params)
+    respond_with :api, photo, location: nil
+  end
+
   private
 
   def photo
@@ -17,5 +22,9 @@ class Api::PhotosController < Api::BaseController
 
   def photo_id
     params.fetch(:id)
+  end
+
+  def photo_params
+    params.permit(:title, :photo_content)
   end
 end
