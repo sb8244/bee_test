@@ -39,7 +39,8 @@ RSpec.describe Api::UploadsController, type: :controller do
           "id" => photo.id,
           "created_at" => photo.created_at.iso8601(3),
           "updated_at" => photo.updated_at.iso8601(3),
-          "photo_content" => { "url" => photo.photo_content.url }
+          "photo_content" => { "url" => photo.photo_content.url },
+          "user_id" => user.id
         )
       end
     end

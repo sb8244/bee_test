@@ -1,6 +1,6 @@
 class Api::UploadsController < Api::BaseController
   def create
-    photo = Photo.create(photo_params)
+    photo = current_user.photos.create(photo_params)
     respond_with :api, photo, location: nil
   end
 
