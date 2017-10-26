@@ -7,6 +7,6 @@ class Api::UploadsController < Api::BaseController
   private
 
   def photo_params
-    params.permit(:title)
+    params.permit(:title, :photo_content)
   end
 end
