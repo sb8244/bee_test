@@ -31,4 +31,19 @@ RSpec.describe Api::PhotosController, type: :controller do
       expect(response.status).to eq(404)
     end
   end
+
+  describe "GET index" do
+    it "renders all photos in order of creation DESC" do
+      get :index
+      expect(response.status).to eq(200)
+      body = JSON.parse(response.body)
+      expect(body.length).to eq(3)
+      expect(body.map { |h| h["id"] }).to eq([photo3.id, photo2.id, photo1.id])
+    end
+
+    it "is a 404 when missing the photo" do
+      get :show, params: { id: 0 }
+      expect(response.status).to eq(404)
+    end
+  end
 end

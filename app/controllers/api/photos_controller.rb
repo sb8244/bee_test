@@ -2,6 +2,7 @@ class Api::PhotosController < Api::BaseController
   skip_before_action :require_authenticated_user!, only: [:index, :show]
 
   def index
+    respond_with :api, Photo.all.order(created_at: :desc)
   end
 
   def show
