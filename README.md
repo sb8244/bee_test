@@ -28,3 +28,21 @@ to the authenticated endpoints.
 The system uses file upload for ease of use, but S3 or equivalent uploading is ideal in production loads. This is because
 the file system could become saturated with writes under high load, and distributing this to multiple servers means that
 the content has to be distributed. All of that is not difficult to add, but the setup is worth more than this simple project.
+
+## Executing
+
+1. Create a user manually using `USER_PAYLOAD_TOKEN=test rails c`:
+
+```
+User.create!(email: "test@test.com", password: "password")
+"Bearer: #{User.last.get_auth_token}"
+```
+
+2. Start a server using `USER_PAYLOAD_TOKEN rails s`
+3. Open Postman (or equivalent REST client)
+4. Set Authorization header to the bearer token above
+5. Set URL to http://localhost:3000/api/photos
+6. Set params[title]
+7. Set params[photo_content] as file type (postman supports this out of the box)
+8. Upload some files!
+9. View all files at http://localhost:3000/api/photos or a single file at http://localhost:3000/api/photos/:id
